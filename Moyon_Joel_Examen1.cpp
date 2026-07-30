@@ -57,6 +57,30 @@ int registrarEstudiantes(string nombres[], float notas[]) {
     return cantidad;
 }
 
+void mostrarReporte(string nombres[], float notas[], int cantidad) {
+    float sumaNotas = 0;
+    int aprobados = 0, reprobados = 0;
+    float notaMayor = -1, notaMenor = 21; 
+    string estudianteMayor = "", estudianteMenor = "";
+
+    cout << "\n--- REPORTE GENERAL ---\n";
+    for (int i = 0; i < cantidad; i++) {
+        string estado = (notas[i] >= 14) ? "APROBADO" : "REPROBADO";
+        cout << (i + 1) << ". Nombre: " << nombres[i] << " | Nota: " << notas[i] << " | Estado: " << estado << "\n";
+        sumaNotas += notas[i];
+        if (notas[i] >= 14) aprobados++;
+        else reprobados++;
+        
+        if (notas[i] > notaMayor) { notaMayor = notas[i]; estudianteMayor = nombres[i]; }
+        if (notas[i] < notaMenor) { notaMenor = notas[i]; estudianteMenor = nombres[i]; }
+    }
+    cout << "\nPromedio general del curso: " << (sumaNotas / cantidad) << "\n";
+    cout << "Estudiante con la nota mayor: " << estudianteMayor << " (" << notaMayor << ")\n";
+    cout << "Estudiante con la nota menor: " << estudianteMenor << " (" << notaMenor << ")\n";
+    cout << "Total de estudiantes APROBADOS: " << aprobados << "\n";
+    cout << "Total de estudiantes REPROBADOS: " << reprobados << "\n";
+}
+
 int main() {
     
     string nombres[20];
@@ -72,6 +96,7 @@ int main() {
             case 1:
                 cout << "\n[Registro en construccion...]\n";
                 // En el siguiente paso aquí llamaremos a la función de registro
+                cantidadActual = registrarEstudiantes(nombres, notas);
                 break;
                 
             case 2:
